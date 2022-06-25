@@ -61,7 +61,7 @@ async function first() {
 			client.close()
 
 			let result = []
-			const browser = await puppeteer.launch({ headless: true })
+			const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] })
 			const page = await browser.newPage()
 			// page.setCookie({
 			// 	name: 'session',
