@@ -6,7 +6,6 @@ import { fileURLToPath } from 'url'
 async function first() {
 	const promise = new Promise((res, rej) => {
 		const uri = process.env.URI
-		console.log(uri)
 
 		const client = new MongoClient(uri, {
 			useNewUrlParser: true,
