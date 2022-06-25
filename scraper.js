@@ -62,17 +62,17 @@ async function first() {
 			let result = []
 			const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] })
 			const page = await browser.newPage()
-			// page.setCookie({
-			// 	name: 'session',
-			// 	value: '1-HjHlBpm9bzYx7pPS6mXo-5s-yGMPuYuTakolIZe8U0Ms2037372961',
-			// 	domain: 'buff.163.com',
-			// })
-			// await page.goto('https://buff.163.com')
-			// page.deleteCookie({
-			// 	name: 'session',
-			// 	value: '1-HjHlBpm9bzYx7pPS6mXo-5s-yGMPuYuTakolIZe8U0Ms2037372961',
-			// 	domain: 'buff.163.com',
-			// })
+			page.setCookie({
+				name: 'session',
+				value: '1-HjHlBpm9bzYx7pPS6mXo-5s-yGMPuYuTakolIZe8U0Ms2037372961',
+				domain: 'buff.163.com',
+			})
+			await page.goto('https://buff.163.com')
+			page.deleteCookie({
+				name: 'session',
+				value: '1-HjHlBpm9bzYx7pPS6mXo-5s-yGMPuYuTakolIZe8U0Ms2037372961',
+				domain: 'buff.163.com',
+			})
 			for (const id of ids) {
 				result.push(await scrape(id))
 			}
