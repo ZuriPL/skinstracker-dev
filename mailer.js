@@ -76,7 +76,11 @@ async function second() {
 			data.users.forEach((user) => {
 				let allSkins = []
 				user.skins.forEach((id) => allSkins.push(data.skins[id]))
-				mailer(user.email, allSkins).catch(console.error)
+				try {
+					mailer(user.email, allSkins).catch(console.error)
+				} catch (e) {
+					pass
+				}
 			})
 
 			client.close()
