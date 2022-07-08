@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb'
-import puppeteer from 'puppeteer'
 import { fileURLToPath } from 'url'
 
 async function first() {
@@ -15,34 +14,13 @@ async function first() {
 
 		client.connect(async (err) => {
 			async function scrape(id) {
-				await page.goto(`https://buff.163.com/goods/${id}#tab=selling`)
+				let res = await fetch(`https://buff.163.com/api/market/goods/sell_order?game=csgo&goods_id=${id}`)
+				let data = await res.json()
 
-				let priceElement = await page.waitForSelector(
-					'.list_tb_csgo > tr:nth-child(2) > td:nth-child(5) > div:nth-child(1) > p > span'
-				)
-				let price = await page.evaluate((priceElement) => priceElement.textContent, priceElement)
+				let name = data.data.goods_infos[id].name
+				let price = data.data.items[0].price + ' ¥'
 
-				// delete parentheses and move the CNY symbol from left to right
-				price = price.split('')
-				price.shift()
-				price.pop()
-				price = price.join('')
-				price = price.split(' ').reverse().join(' ')
-
-				let nameElement = await page.waitForSelector(
-					'body > div.market-list > div > div.detail-header.black > div.detail-cont > div:nth-child(1) > h1'
-				)
-				let name = await page.evaluate((nameElement) => nameElement.textContent, nameElement)
-
-				name = name.split('★')
-				name = name.join('')
-				let image = await page.evaluate(() =>
-					document
-						.querySelector('div.detail-header.black > div.detail-pic > div.t_Center > img')
-						.getAttribute('src')
-				)
-
-				return { id, name, price, image }
+				return { name, price, id }
 			}
 
 			const collection = client.db('SkinsTracker').collection('SkinsTracker')
@@ -60,28 +38,15 @@ async function first() {
 			client.close()
 
 			let result = []
-			const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] })
-			const page = await browser.newPage()
-			page.setCookie({
-				name: 'session',
-				value: '1-HjHlBpm9bzYx7pPS6mXo-5s-yGMPuYuTakolIZe8U0Ms2037372961',
-				domain: 'buff.163.com',
-			})
-			await page.goto('https://buff.163.com')
-			page.deleteCookie({
-				name: 'session',
-				value: '1-HjHlBpm9bzYx7pPS6mXo-5s-yGMPuYuTakolIZe8U0Ms2037372961',
-				domain: 'buff.163.com',
-			})
+
 			for (const id of ids) {
 				result.push(await scrape(id))
 			}
-			browser.close()
 
 			let obj = {}
 
 			result.forEach((result) => {
-				obj[result.id] = { name: result.name, price: result.price, image: result.image }
+				obj[result.id] = { name: result.name, price: result.price }
 			})
 
 			client.connect(async (err) => {

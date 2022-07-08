@@ -15,7 +15,6 @@
     "dotenv": "^16.0.1",
     "mongodb": "^4.6.0",
     "ncr-decode": "^1.0.2",
-    "nodemailer": "^6.7.5",
-    "puppeteer": "^14.1.1"
+    "nodemailer": "^6.7.5"
   }
 }
