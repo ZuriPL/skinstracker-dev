@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb'
 import { fileURLToPath } from 'url'
+import fetch from 'node-fetch'
 
 async function first() {
 	const promise = new Promise((res, rej) => {
