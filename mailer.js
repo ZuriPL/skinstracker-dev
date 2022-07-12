@@ -8,7 +8,7 @@ async function mailer(reciever, skins) {
 		service: 'gmail',
 		auth: {
 			user: 'skinstracker@gmail.com',
-			pass: 'wrjslyvjirpaoyis',
+			pass: process.env['MAILPASS'],
 		},
 	})
 
