@@ -191,6 +191,7 @@ app.get('/', async (req, res) => {
 })
 
 app.get('/healthz', (req, res) => {
+	console.log('health')
 	res.status(200).send('Ok')
 })
 
