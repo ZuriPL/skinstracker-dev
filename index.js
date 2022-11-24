@@ -189,6 +189,10 @@ app.get('/', async (req, res) => {
 	res.send('Success!')
 })
 
+app.all('/healthz', (req, res) => {
+	res.sendStatus(200)
+})
+
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`)
 })
