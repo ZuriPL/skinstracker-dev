@@ -183,7 +183,7 @@ async function taskWrapper(func, taskName) {
 	return true
 }
 
-app.get('/', async (req, res) => {
+app.get('/mail', async (req, res) => {
 	console.log(1)
 	await taskWrapper(first, 'Scrape')
 	await taskWrapper(second, 'Mail')
