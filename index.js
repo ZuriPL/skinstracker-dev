@@ -2,13 +2,14 @@
 // import second from './mailer.js'
 // const first = require('./scraper.js')
 // const second = require('./mailer.js')
-const express = require('express')
-const app = express()
-const port = 3000
+import express from 'express'
 import 'dotenv/config'
 import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb'
 import fetch from 'node-fetch'
 import nodemailer from 'nodemailer'
+
+const app = express()
+const port = 3000
 
 async function mailer(reciever, skins) {
 	let transporter = nodemailer.createTransport({
