@@ -9,7 +9,7 @@ import fetch from 'node-fetch'
 import nodemailer from 'nodemailer'
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 async function mailer(reciever, skins) {
 	let transporter = nodemailer.createTransport({
@@ -196,5 +196,5 @@ app.get('/healthz', (req, res) => {
 })
 
 app.listen(port, () => {
-	console.log(`Example app listening on port ${port}`)
+	console.log(`App listening on port ${port}`)
 })
