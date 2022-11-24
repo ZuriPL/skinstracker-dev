@@ -190,8 +190,8 @@ app.get('/', async (req, res) => {
 	res.send('Success!')
 })
 
-app.all('/healthz', (req, res) => {
-	res.sendStatus(200)
+app.get('/healthz', (req, res) => {
+	res.status(200).send('Ok')
 })
 
 app.listen(port, () => {
