@@ -182,8 +182,6 @@ async function taskWrapper(func, taskName) {
 	return true
 }
 
-// pls
-
 app.get('/', async (req, res) => {
 	console.log(1)
 	await taskWrapper(first, 'Scrape')
