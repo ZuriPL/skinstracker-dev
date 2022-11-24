@@ -2,9 +2,7 @@
 // import second from './mailer.js'
 // const first = require('./scraper.js')
 // const second = require('./mailer.js')
-const express = require('express')
-const app = express()
-const port = 3000
+import { app } from 'deta'
 import 'dotenv/config'
 import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb'
 import fetch from 'node-fetch'
@@ -182,15 +180,9 @@ async function taskWrapper(func, taskName) {
 	return true
 }
 
-app.get('/', async (req, res) => {
-	console.log(1)
+app.lib.cron(async (e) => {
 	await taskWrapper(first, 'Scrape')
 	await taskWrapper(second, 'Mail')
-	res.send('Success!')
-})
-
-app.listen(port, () => {
-	console.log(`Example app listening on port ${port}`)
 })
 
 module.exports = app
