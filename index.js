@@ -197,5 +197,3 @@ app.all('/healthz', (req, res) => {
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`)
 })
-
-module.exports = app
