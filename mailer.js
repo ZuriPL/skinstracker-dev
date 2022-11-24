@@ -16,10 +16,11 @@ async function mailer(reciever, skins) {
 	let n = 0
 
 	const makeRow = (skin, isEven) => {
-		return `<tr ${isEven ? 'bgcolor="#ddd"' : ''}>
-		<td style="padding:8px;padding-left:12px;">${skin.name}</td>
-		<td style="padding:8px;width:20%;"><center>${skin.price}</center></td>
-	</tr>`
+		return `
+		<tr ${isEven ? 'bgcolor="#ddd"' : ''}>
+			<td style="padding:8px;padding-left:12px;">${skin.name}</td>
+			<td style="padding:8px;width:20%;"><center>${skin.price}</center></td>
+		</tr>`
 	}
 
 	skins.forEach((skin) => {
@@ -53,7 +54,7 @@ async function mailer(reciever, skins) {
 	</table></center>
 	`
 
-	let info = await transporter.sendMail({
+	await transporter.sendMail({
 		from: 'SkinsTracker',
 		to: reciever,
 		subject: 'Daily Report',

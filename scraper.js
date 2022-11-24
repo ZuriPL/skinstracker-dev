@@ -56,6 +56,8 @@ async function first() {
 				obj[result.id] = { name: result.name, price: result.price }
 			})
 
+			console.log(obj)
+
 			client.connect(async (err) => {
 				const collection = client.db('SkinsTracker').collection('SkinsTracker')
 
