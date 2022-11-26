@@ -18,6 +18,15 @@ async function taskWrapper(func, taskName) {
 app.get('/mail', async (req, res) => {
 	await taskWrapper(first, 'Scrape')
 	await taskWrapper(second, 'Mail')
+
+	await fetch(`https://buff.163.com/api/message/notification`, {
+		headers: {
+			cookie: process.env['SESSION'],
+		},
+		credentials: 'include',
+		mode: 'cors',
+	})
+
 	res.send('Success!')
 })
 
