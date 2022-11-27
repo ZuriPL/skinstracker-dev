@@ -2,6 +2,7 @@ import first from './scraper.js'
 import second from './mailer.js'
 import express from 'express'
 import 'dotenv/config'
+import fetch from 'node-fetch'
 
 const app = express()
 const port = process.env.PORT || 3000
