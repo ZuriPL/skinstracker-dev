@@ -17,6 +17,8 @@ async function taskWrapper(func, taskName) {
 }
 
 app.get('/mail', async (req, res) => {
+	res.send('Success!')
+
 	await taskWrapper(first, 'Scrape')
 	await taskWrapper(second, 'Mail')
 
@@ -27,8 +29,6 @@ app.get('/mail', async (req, res) => {
 		credentials: 'include',
 		mode: 'cors',
 	})
-
-	res.send('Success!')
 })
 
 app.get('/healthz', (req, res) => {
