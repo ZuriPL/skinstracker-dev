@@ -17,7 +17,7 @@ async function taskWrapper(func, taskName) {
 }
 
 app.get('/mail', async (req, res) => {
-	res.send('Success!')
+	res.status(200).send('OK')
 
 	await taskWrapper(first, 'Scrape')
 	await taskWrapper(second, 'Mail')
@@ -32,7 +32,7 @@ app.get('/mail', async (req, res) => {
 })
 
 app.get('/healthz', (req, res) => {
-	res.status(200).send('Ok')
+	res.status(200).send('OK')
 })
 
 app.listen(port, () => {

@@ -15,13 +15,8 @@ async function first() {
 
 		client.connect(async (err) => {
 			async function scrape(id) {
-				let res = await fetch(`https://buff.163.com/api/market/goods/sell_order?game=csgo&goods_id=${id}`, {
-					headers: {
-						cookie: 'Locale-Supported=en',
-					},
-					credentials: 'include',
-					mode: 'cors',
-				})
+				let res = await fetch(`https://buff.163.com/api/market/goods/sell_order?game=csgo&goods_id=${id}`)
+				console.log(await res.text())
 				let data = await res.json()
 
 				let name = data.data.goods_infos[id].name
@@ -44,15 +39,17 @@ async function first() {
 
 			client.close()
 
-			let result = []
+			let results = []
 
 			for (const id of ids) {
-				result.push(await scrape(id))
+				results.push(scrape(id))
 			}
+
+			await Promise.all(results).then((values) => (results = values))
 
 			let obj = {}
 
-			result.forEach((result) => {
+			results.forEach((result) => {
 				obj[result.id] = { name: result.name, price: result.price }
 			})
 
